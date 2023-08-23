@@ -14,23 +14,14 @@ async function write(data) {
 }
 
 const listContacts = async () => await read();
-// {
-//     // Повертає масив контактів.
-//     // const data = await fs.readFile(contactsPath, "utf-8");
-//     // const contacts = JSON.parse(data);
-
-//     // const contacts = read();
-
-//     // return contacts;
-//     return await read();
-// };
+// Повертає масив контактів.
 
 const getContactById = async (contactId) => {
     // Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
     const contacts = await read();
     const contactById = contacts.find((contact) => contact.id === contactId);
 
-    return contactById || null; // ? contactById : null;
+    return contactById || null;
 };
 
 const removeContact = async (contactId) => {
@@ -39,7 +30,7 @@ const removeContact = async (contactId) => {
     const index = contacts.findIndex((contact) => contact.id === contactId);
 
     if (index === -1) {
-        return null; // { message: "Not found" };
+        return null;
     }
 
     const newContacts = [
@@ -48,7 +39,7 @@ const removeContact = async (contactId) => {
     ];
     write(newContacts);
 
-    return contacts[index]; // { message: "contact deleted" };
+    return contacts[index];
 };
 
 const addContact = async (body) => {
@@ -62,12 +53,6 @@ const addContact = async (body) => {
 };
 
 const updateContact = async (contactId, body) => {
-    // const cont = await getContactById(contactId);
-    // if (!cont) {
-    //     return cont;
-    // }
-    // console.log(cont);
-
     const contacts = await read();
     const contactIdx = contacts.findIndex(
         (contact) => contact.id === contactId
