@@ -24,14 +24,15 @@ const removeContact = async (req, res) => {
     const { contactId } = req.params;
     const contact = await contacts.removeContact(contactId);
     if (!contact) {
-        throw HttpError(400, "Not found");
+        throw HttpError(404, "Not found");
     }
-    res.json({ message: "contact deleted" });
+    res.status(200).json({ message: "contact deleted" });
 };
 
 const updateContact = async (req, res) => {
     const { contactId } = req.params;
     const contactUpDate = await contacts.updateContact(contactId, req.body);
+    console.log(contactUpDate);
     if (!contactUpDate) {
         throw HttpError(404, "Not found");
     }
