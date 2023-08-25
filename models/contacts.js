@@ -10,7 +10,7 @@ async function read() {
     return JSON.parse(data);
 }
 async function write(data) {
-    return fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
+    return await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
 }
 
 const listContacts = async () => await read();
