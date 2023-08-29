@@ -2,7 +2,7 @@ const { HttpError } = require("../utils");
 
 const validateBody = (schema, method) => {
     const func = (req, res, next) => {
-        if (method === "PATCH" && !req.body.favorite) {
+        if (req.method === "PATCH" && !req.body.favorite) {
             return res.status(400).json({ message: "missing field favorite" });
         }
         const { error } = schema.validate(req.body);
