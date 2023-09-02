@@ -6,7 +6,7 @@ const { schemas } = require("../../schemasJoi/user");
 const router = express.Router();
 const ctrl = require("../../controllers/users");
 
-// signup
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 
 module.exports = router;
