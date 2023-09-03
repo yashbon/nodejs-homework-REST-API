@@ -3,7 +3,10 @@ const Contact = require("../models/contact");
 
 const getAllContacts = async (req, res) => {
     const { _id: owner } = req.user;
-    const contactsList = await Contact.find({ owner }, "-createdAt -updatedAt");
+    const contactsList = await Contact.find(
+        { owner },
+        "-createdAt -updatedAt"
+    ).populate("owner", "name email");
     res.json(contactsList);
 };
 
