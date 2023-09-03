@@ -8,6 +8,7 @@ const ctrl = require("../../controllers/users");
 
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
+router.post("/logout", authenticate, ctrl.logout);
 router.get("/current", authenticate, ctrl.getCurrentUser);
 
 module.exports = router;
