@@ -25,14 +25,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).exec();
-    // console.log(user);
-
-    // if (!user) {
-    //     throw HttpError(401, "Email or password is wrong");
-    // }
 
     const validPassword = await bcrypt.compare(password, user.password);
-    console.log(validPassword);
+    // console.log(validPassword);
     if (!user || !validPassword) {
         throw HttpError(401, "Email or password is wrong");
     }
@@ -61,14 +56,8 @@ const getCurrentUser = async (req, res) => {
 };
 
 const updateSubscriptionUser = async (req, res) => {
-    // console.log(req.user);
     const { _id } = req.user;
     const { subscription } = req.body;
-
-    // if (!subscription) {
-    //     throw HttpError(400, "Subscription is required");
-    // }
-
     const subscriptionsValues = ["starter", "pro", "business"];
     if (!subscriptionsValues.includes(subscription)) {
         throw HttpError(400, "Invalid subscription value");
@@ -83,22 +72,8 @@ const updateSubscriptionUser = async (req, res) => {
     if (!subscriptionUpdate) {
         throw HttpError(404, "User not found");
     }
-    // console.log(subscriptionUpdate.subscription);
-    // res.json({ message: "Subscription updated" });
-    // res.status(200).json({ message: "Subscription updated" });
     res.json(subscriptionUpdate);
 };
-// const updateFavorite = async (req, res) => {
-//     const { contactId } = req.params;
-//     const contactUpDate = await Contact.findByIdAndUpdate(contactId, req.body, {
-//         new: true,
-//     });
-//     console.log(contactUpDate);
-//     if (!contactUpDate) {
-//         throw HttpError(404, "Not found");
-//     }
-//     res.json(contactUpDate);
-// };
 
 module.exports = {
     register: ctrlWrapper(register),
