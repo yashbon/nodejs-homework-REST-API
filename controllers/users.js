@@ -17,18 +17,23 @@ const register = async (req, res) => {
     });
 
     res.status(201).json({
-        email: newUser.email,
-        subscription: newUser.subscription,
+        user: {
+            email: newUser.email,
+            subscription: newUser.subscription,
+        },
     });
 };
 
 const login = async (req, res) => {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email }).exec();
+    if (!user) {
+        throw HttpError(401, "Email or password is wrong");
+    }
 
     const validPassword = await bcrypt.compare(password, user.password);
-    // console.log(validPassword);
-    if (!user || !validPassword) {
+    if (!validPassword) {
         throw HttpError(401, "Email or password is wrong");
     }
 
@@ -39,8 +44,10 @@ const login = async (req, res) => {
 
     res.status(200).json({
         token,
-        email: user.email,
-        subscription: user.subscription,
+        user: {
+            email: user.email,
+            subscription: user.subscription,
+        },
     });
 };
 
