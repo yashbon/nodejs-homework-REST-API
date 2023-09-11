@@ -82,10 +82,22 @@ const updateSubscriptionUser = async (req, res) => {
     res.json(subscriptionUpdate);
 };
 
+const fs = require("fs/promises");
+const path = require("path");
+const avatarsDir = path.join(__dirname, "..", "public", "avatars");
+async function uploadAvatar(req, res, next) {
+    res.send("upload Avatar");
+
+    const { path: tempUpload, originalname } = req.file;
+    const resultUpload = path.join(avatarsDir, originalname);
+    await fs.rename(tempUpload, resultUpload);
+}
+
 module.exports = {
     register: ctrlWrapper(register),
     login: ctrlWrapper(login),
     logout: ctrlWrapper(logout),
     getCurrentUser: ctrlWrapper(getCurrentUser),
     updateSubscriptionUser: ctrlWrapper(updateSubscriptionUser),
+    uploadAvatar: ctrlWrapper(uploadAvatar),
 };
