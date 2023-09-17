@@ -1,4 +1,4 @@
-const { HttpError, ctrlWrapper } = require("../utils");
+const { HttpError, ctrlWrapper, sendEmail } = require("../utils");
 const { User } = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -19,6 +19,15 @@ const register = async (req, res) => {
         password: hashedPassword,
         avatarURL,
     });
+
+    // send email
+    const emailData = {
+        to: email,
+        // from: "bohdan.yashchyshyn@meta.ua",
+        subject: "Test email",
+        html: "<p>Test email</p>",
+    };
+    sendEmail(emailData);
 
     res.status(201).json({
         user: {
