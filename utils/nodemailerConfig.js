@@ -1,13 +1,17 @@
 require("dotenv").config();
-const { META_PASSWORD } = process.env;
+const {
+    // META_PASSWORD,
+    EMAIL_USER,
+    EMAIL_PASS,
+} = process.env;
 
 const nodemailerConfig = {
     host: "s3.thehost.com.ua",
     port: 465,
     secure: true,
     auth: {
-        user: "admin@pilo-shop.com.ua",
-        pass: "Zanuda2015",
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
     },
 };
 
