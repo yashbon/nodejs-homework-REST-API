@@ -4,9 +4,11 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../utils");
 
+const resendVerifyEmail = require("./resendVerifyEmail");
+
 const login = async (req, res) => {
     const { email, password } = req.body;
-
+    console.log(email);
     const user = await User.findOne({ email }).exec();
     if (!user) {
         throw HttpError(401, "Email or password is wrong");
