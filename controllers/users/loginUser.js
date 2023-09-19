@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../utils");
 
-const resendVerifyEmail = require("./resendVerifyEmail");
-
 const login = async (req, res) => {
     const { email, password } = req.body;
     console.log(email);
